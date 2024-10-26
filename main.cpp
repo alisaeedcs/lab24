@@ -1,20 +1,20 @@
-// comsc-210 | Ali Saeed \ Lab 23
+// comsc-210 | Ali Saeed \ Lab 24
 // ide used; vs code
 
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <list>
+#include <set>
 #include "Goat.h"
 using namespace std;
 
 const int SZ_NAMES = 200, SZ_COLORS = 25, MAX_AGE = 20;
 
 //function prototypes
-int select_goat(list<Goat> trip);
-void delete_goat(list<Goat> &trip);
-void add_goat(list<Goat> &trip, string [], string []);
-void display_trip(list<Goat> trip);
+int select_goat(set<Goat> trip);
+void delete_goat(set<Goat> &trip);
+void add_goat(set<Goat> &trip, string [], string []);
+void display_trip(set<Goat> trip);
 int main_menu();
 
 int main() {
@@ -33,7 +33,7 @@ int main() {
     fin1.close();
 
     //list
-    list<Goat> trip;
+    set<Goat> trip;
 
     //loop that runs the main_menu() function until quit is chosen
     int choice = 0;
@@ -84,7 +84,7 @@ int main_menu() {
 }
 
 //add goat to list
-void add_goat(list<Goat> &trip, string names[], string colors[]) {
+void add_goat(set<Goat> &trip, string names[], string colors[]) {
     string name, color;
     int age;
     name = names[rand() % SZ_NAMES];
@@ -92,12 +92,12 @@ void add_goat(list<Goat> &trip, string names[], string colors[]) {
     age = rand() % MAX_AGE;
 
     Goat addedGoat(name, age, color);
-    trip.push_back(addedGoat);
+    trip.insert(addedGoat);
     cout << "\tGoat added, Name: " << name << ", Age: " << age << ", Color: " << color << "\n";
 }
 
 //display the trip so that we can see all elements in list for deleting (use select with this and then use delete with the select)
-void display_trip(list<Goat> trip) {
+void display_trip(set<Goat> trip) {
     if (trip.empty()) {
         cout << "List empty.";
         return;
@@ -111,7 +111,7 @@ void display_trip(list<Goat> trip) {
 }
 
 //select number of goat for now to be used to delete
-int select_goat(list<Goat> trip) {
+int select_goat(set<Goat> trip) {
     //make sure it has at east one element
     if (trip.empty()) {
         cout << "List empty.";
@@ -129,7 +129,7 @@ int select_goat(list<Goat> trip) {
 }
 
 //make sure its valid then go iterate and delete it
-void delete_goat(list<Goat> &trip) {
+void delete_goat(set<Goat> &trip) {
     auto it = trip.begin();
     int choice = select_goat(trip);
 
